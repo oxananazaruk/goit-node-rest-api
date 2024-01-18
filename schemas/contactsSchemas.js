@@ -7,13 +7,18 @@ const createContactSchema = Joi.object({
       minDomainSegments: 2,
     })
     .required(),
-  phone: Joi.string()
-    .pattern(/^\d{10}$/)
-    .required(),
+  phone: Joi.string().min(10).required(),
 });
 
-const updateContactSchema = Joi.object({});
+const updateContactSchema = Joi.object({
+  name: Joi.string(),
+  email: Joi.string().email({
+    minDomainSegments: 2,
+  }),
+  phone: Joi.string().min(10),
+});
 
 module.exports = {
   createContactSchema,
+  updateContactSchema,
 };
