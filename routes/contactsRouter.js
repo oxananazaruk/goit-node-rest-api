@@ -7,7 +7,7 @@ contactsRouter.get("/", ctrl.getAllContacts);
 
 contactsRouter.get("/:id", ctrl.getContactById);
 
-// contactsRouter.delete("/:id", ctrl.deleteContact);
+contactsRouter.delete("/:id", ctrl.deleteContact);
 
 // contactsRouter.post("/", ctrl.createContact);
 
