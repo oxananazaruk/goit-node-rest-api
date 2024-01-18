@@ -1,11 +1,28 @@
-import contactsService from "../services/contactsServices.js";
+const contactsService = require("../services/contactsServices");
+const ctrlWrapper = require("../helpers/ctrlWrapper");
+const HttpError = require("../helpers/HttpError");
 
-export const getAllContacts = (req, res) => {};
+const getAllContacts = async (req, res) => {
+  const result = await contactsService.listContacts();
+  res.json(result);
+};
 
-export const getContactById = (req, res) => {};
+const getContactById = async (req, res) => {
+  const { id } = req.params;
+  const result = await contactsService.getContactById(id);
+  if (!result) {
+    throw HttpError(404, "Not Found");
+  }
+  res.json(result);
+};
 
-export const deleteContact = (req, res) => {};
+const deleteContact = (req, res) => {};
 
-export const createContact = (req, res) => {};
+const createContact = (req, res) => {};
 
-export const updateContact = (req, res) => {};
+const updateContact = (req, res) => {};
+
+module.exports = {
+  getAllContacts: ctrlWrapper(getAllContacts),
+  getContactById: ctrlWrapper(getContactById),
+};
