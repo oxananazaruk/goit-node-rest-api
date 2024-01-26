@@ -11,11 +11,7 @@ const createContactSchema = Joi.object({
 });
 
 const updateContactSchema = Joi.object({
-  name: Joi.string(),
-  email: Joi.string().email({
-    minDomainSegments: 2,
-  }),
-  phone: Joi.string().min(10),
+  favorite: Joi.boolean().required(),
 });
 
 module.exports = {
