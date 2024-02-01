@@ -1,15 +1,14 @@
-const contactsService = require("../services/contactsServices");
-const ctrlWrapper = require("../helpers/ctrlWrapper");
-const HttpError = require("../helpers/HttpError");
+const { ctrlWrapper, HttpError } = require("../helpers");
+const Contact = require("../models/contact");
 
 const getAllContacts = async (req, res) => {
-  const result = await contactsService.listContacts();
+  const result = await Contact.find({}, "-createdAt -updatedAt");
   res.json(result);
 };
 
 const getContactById = async (req, res) => {
   const { id } = req.params;
-  const result = await contactsService.getContactById(id);
+  const result = await Contact.findById(id, "-createdAt -updatedAt");
   if (!result) {
     throw HttpError(404);
   }
@@ -18,7 +17,7 @@ const getContactById = async (req, res) => {
 
 const deleteContact = async (req, res) => {
   const { id } = req.params;
-  const result = await contactsService.removeContact(id);
+  const result = await Contact.findByIdAndDelete(id);
   if (!result) {
     throw HttpError(404);
   }
@@ -26,16 +25,13 @@ const deleteContact = async (req, res) => {
 };
 
 const createContact = async (req, res) => {
-  const result = await contactsService.addContact(req.body);
+  const result = await Contact.create(req.body);
   res.status(201).json(result);
 };
 
-const updateContact = async (req, res) => {
+const updateStatusContact = async (req, res) => {
   const { id } = req.params;
-  if (JSON.stringify(req.body) === "{}") {
-    throw HttpError(400, "Body must have at least one field");
-  }
-  const result = await contactsService.updateContact(id, req.body);
+  const result = await Contact.findByIdAndUpdate(id, req.body, { new: true });
   if (!result) {
     throw HttpError(404);
   }
@@ -47,5 +43,5 @@ module.exports = {
   getContactById: ctrlWrapper(getContactById),
   deleteContact: ctrlWrapper(deleteContact),
   createContact: ctrlWrapper(createContact),
-  updateContact: ctrlWrapper(updateContact),
+  updateStatusContact: ctrlWrapper(updateStatusContact),
 };
