@@ -1,4 +1,4 @@
-const User = require("../models/user");
+const { User } = require("../models/user");
 const { ctrlWrapper, HttpError } = require("../helpers");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
@@ -54,12 +54,12 @@ const logout = async (req, res) => {
   const { _id } = req.user;
 
   await User.findByIdAndUpdate(_id, { token: "" });
-  res.status(204);
+  res.status(204).json({ message: "No Content" });
 };
 
 const getCurrent = async (req, res) => {
-  const { email } = req.user;
-  res.json({ email });
+  const { email, subscription } = req.user;
+  res.json({ email, subscription });
 };
 
 const updateUser = async (req, res) => {

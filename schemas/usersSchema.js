@@ -1,7 +1,7 @@
 const Joi = require("joi");
+const { subscriptionList } = require("../models/user");
 
 const emailRegex = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
-const subscriptionList = ["starter", "pro", "business"];
 
 const userAuthSchema = Joi.object({
   email: Joi.string().pattern(emailRegex).required(),

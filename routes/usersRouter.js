@@ -9,6 +9,6 @@ usersRouter.post("/register", validateBody(userAuthSchema), ctrl.register);
 usersRouter.post("/login", validateBody(userAuthSchema), ctrl.login);
 usersRouter.post("/logout", authMiddleware, ctrl.logout);
 usersRouter.get("/current", authMiddleware, ctrl.getCurrent);
-usersRouter.patch("/", validateBody(updateUserSchema), ctrl.updateUser);
+usersRouter.patch("/:id", validateBody(updateUserSchema), ctrl.updateUser);
 
 module.exports = usersRouter;
