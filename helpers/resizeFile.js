@@ -10,7 +10,6 @@ const resizeFile = (filePath, newPath) => {
       return newImage.write(newPath);
     })
     .catch((err) => {
-      //   console.error(err);
       throw HttpError(500);
     });
 };
