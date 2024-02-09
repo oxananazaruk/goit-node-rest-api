@@ -1,5 +1,5 @@
 const Jimp = require("jimp");
-const { HttpError } = require("./HttpError");
+const HttpError = require("./HttpError");
 
 const resizeFile = (filePath, newPath) => {
   Jimp.read(filePath)
@@ -10,7 +10,7 @@ const resizeFile = (filePath, newPath) => {
       return newImage.write(newPath);
     })
     .catch((err) => {
-      console.error(err);
+      //   console.error(err);
       throw HttpError(500);
     });
 };
