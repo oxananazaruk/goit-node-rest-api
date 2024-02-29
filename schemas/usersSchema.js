@@ -14,4 +14,10 @@ const updateUserSchema = Joi.object({
     .required(),
 });
 
-module.exports = { userAuthSchema, updateUserSchema };
+const emailSchema = Joi.object({
+  email: Joi.string()
+    .pattern(emailRegex)
+    .required("missing required field email"),
+});
+
+module.exports = { userAuthSchema, updateUserSchema, emailSchema };
